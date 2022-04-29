@@ -2,6 +2,7 @@
 // dependencies
 const express = require('express');
 // route dependencies default to index.js from each directory
+const apiRoutes = require('./routes/apiRoutes')
 const htmlRoutes = require('./routes/htmlRoutes');
 
 // assigning express() to app allows for chaining of methods
@@ -17,7 +18,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // point to route files
-// app.use('/api', apiRoutes);
+app.use('/api', apiRoutes);
 app.use('/', htmlRoutes);
 
 // listen method for requests to server
@@ -25,3 +26,7 @@ app.listen(PORT, () => {
     // confirmation console.log
     console.log(`Server now listening on ${PORT}`);
 });
+
+
+// !!DEPLOYED HEROKU LINK!!
+// https://note-taker0642.herokuapp.com/
