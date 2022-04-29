@@ -1,6 +1,8 @@
 // SERVER.JS used to initialize server creation
 // dependencies
 const express = require('express');
+// route dependencies default to index.js from each directory
+const htmlRoutes = require('./routes/htmlRoutes');
 
 // assigning express() to app allows for chaining of methods
 const app = express();
@@ -15,6 +17,8 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // point to route files
+// app.use('/api', apiRoutes);
+app.use('/', htmlRoutes);
 
 // listen method for requests to server
 app.listen(PORT, () => {
