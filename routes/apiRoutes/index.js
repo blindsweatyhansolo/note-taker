@@ -81,9 +81,8 @@ router.post('/notes', (req, res) => {
 
 //         // add updated stringified notes to db.json using writeFile
 //         fs.writeFile(path.join(__dirname, '../../db/db.json'), stringNote, (err) => {
-//             if (err) {
-//                 console.log(err);
-//             } else {
+//             if (err) console.log(err);
+//             else {
 //                 // confirmation log
 //                 console.log(`Note successfully deleted.`)
 //             }
@@ -92,16 +91,23 @@ router.post('/notes', (req, res) => {
 //     });
 // });
 
-router.delete("/notes/:id", (req, res) => {
+router.delete('/notes/:id', (req, res) => {
+    // confirmation log
+    console.log(`${req.method} request received to delete note.`);
+
+    // grab id from request, save as new variable
     let noteID = req.params.id;
-    fs.readFile("db/db.json", "utf8", function (err, data) {
+
+    // read the current db.json file to compare grabbed id against saved notes ids, then re-write file without deleted note
+    fs.readFile("../../db/db.json", "utf8", function (err, data) {
       let updatedNotes = JSON.parse(data).filter((note) => {
-        console.log("note.id", note.id);
-        console.log("noteID", noteID);
         return note.id !== noteID;
       });
+
       notes = updatedNotes;
+
       const stringifyNote = JSON.stringify(updatedNotes);
+
       fs.writeFile("db/db.json", stringifyNote, (err) => {
         if (err) console.log(err);
         else {
