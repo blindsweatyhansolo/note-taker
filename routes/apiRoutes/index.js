@@ -15,56 +15,81 @@ const notes = require('../../db/db.json');
 // GET request for reading saved notes as JSON
 // omit /api since it is declared in the middleware from server.js
 router.get('/notes', (req, res) => {
-    console.log(`${req.method} request received to read notes`);
-    // fs.readFile(path.join(__dirname, '../../db/db.json'), 'utf8', (err, data) => {
-    //     if (err) {
-    //         console.log(err)
-    //     } else {
-    //         let notes = data;
-    //     }
-    // });
-    res.json(notes);
+    // confirmation log
+    console.log(`${req.method} request received to read notes.`);
+
+    fs.readFile(path.join(__dirname, '../../db/db.json'), 'utf8', (err, data) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        res.json(notes);
+    });
 });
 
 // POST request for saving new note to req.body, add to db.json, and return new note to client
 router.post('/notes', (req, res) => {
+    // confirmation log
     console.log(`${req.method} request received to add new note.`);
     
-    const note = req.body;
-    
+    // new note object, uses uniqid() to create random id
     let newNote = {
         title: note.title,
         text: note.text,
         id: uniqid()
     };
     
-    // parse new note data
-    // res.json(newNote);
     // push new note to notes array (db.json)
-    // notes.push(newNote);
+    notes.push(newNote);
 
-    // obtain existing notes before writing new file
-    fs.readFile(path.join(__dirname, '../../db/db.json'), 'utf8', (err, data) => {
+    // stringify notes in array, set as variable
+    const stringNote = JSON.stringify(notes);
+    res.json(notes);
+
+    // add stringified note to db.json using writeFile
+    fs.writeFile(path.join(__dirname, '../../db/db.json'), stringNote, (err) => {
         if (err) {
-            console.log(err);
+            console.log(err)
         } else {
-            // convert to json object
-            const parsedNotes = JSON.parse(data);
-
-            // push new note to array
-            parsedNotes.push(newNote);
-
-            // write updated notes back to file
-            fs.writeFile(path.join(__dirname, '../../db/db.json'), JSON.stringify(parsedNotes, null, 2), (writeErr) => {
-                    writeErr ? console.log(writeErr) : console.log('Notes successfully updated.');
-                    return res.json(parsedNotes);
-                }
-            );
-        };
+            // confirmation log
+            console.log(`New note successfully saved.`)
+        }
     });
 });
 
 // DELETE request to remove note with id
+router.delete('/notes/:id', (req, res) => {
+    // confirmation log
+    console.log(`${req.method} request received to delete note.`);
+
+    // grab id from request, save as new variable
+    let noteId = req.params.id;
+
+    // read the current db.json file to compare grabbed id against saved notes ids, then re-write file without deleted note
+    fs.readFile(path.join('../../db/db.json'), 'utf-8', (err, data) => {
+        // save parsed data from db.json as variable
+        let updatedNotes = JSON.parse(data).filter((note) => {
+            // return note ids that don't match noteId from request
+            return note.id !== noteId;
+        });
+        notes = updatedNotes;
+
+        // stringify notes in updatedNotes array, set as variable
+        const stringNote = JSON.stringify(updatedNotes);
+
+        // add updated stringified notes to db.json using writeFile
+        fs.writeFile(path.join(__dirname, '../../db/db.json'), stringNote, (err) => {
+            if (err) {
+                console.log(err);
+            } else {
+                // confirmation log
+                console.log(`Note successfully deleted.`)
+            }
+        });
+        res.json(stringNote);
+    });
+});
 
 
 // export router module
