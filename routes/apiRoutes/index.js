@@ -9,7 +9,7 @@ const path = require('path');
 const fs = require('fs');
 // npm package for generating unique ids using UNIQID
 const uniqid = require('uniqid');
-const notes = require('../../db/db.json');
+let notes = require('../../db/db.json');
 
 
 // GET request for reading saved notes as JSON
