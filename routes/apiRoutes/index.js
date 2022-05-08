@@ -48,9 +48,9 @@ router.post('/notes', (req, res) => {
     // res.json(notes);
 
     // add stringified note to db.json using writeFile
-    fs.writeFile(path.join(__dirname, '../../db/db.json'), stringNote, (err) => {
+    fs.writeFile( '../../db/db.json', stringNote, (err) => {
         if (err) {
-            console.log(err)
+            console.log(err);
         } else {
             // confirmation log
             console.log(`New note successfully saved.`);
@@ -108,7 +108,7 @@ router.delete('/notes/:id', (req, res) => {
 
       const stringifyNote = JSON.stringify(updatedNotes);
 
-      fs.writeFile("db/db.json", stringifyNote, (err) => {
+      fs.writeFile('../../db/db.json', stringifyNote, (err) => {
         if (err) console.log(err);
         else {
           console.log("Note successfully deleted from db.json");
