@@ -38,15 +38,13 @@ The front-end application is hosted/deployed to Heroku. The site can be viewed h
 
 [Note Taker](https://note-taker0642.herokuapp.com/)
 
-![Note Taker landing page](placeholder)
+![Note Taker Demo](./assets/notetakerdemo.gif)
 
 * Navigate through the landing page to the main Notes page by clicking **Get Started**
-* Clicking on the **pencil icon**  on the top right allows a user to add a new note, with a custom title and text in the text areas provided
+* Clicking on the **plus icon**  on the top right allows a user to add a new note, with a custom title and text in the text areas provided
 * Clicking the **save icon** on the top right will save your new note, which in turn adds it to the list of notes on the left
 * Clicking on a saved note will bring it up on the right hand column to view details
 * User can delete a note by clicking on the red **trash icon** next to the saved note's title in the left hand column
-
-![Note Taker main page](placeholder)
 
 ## [Testing:](#table-of-contents)
 [Jest](https://jestjs.io/) used in testing note creation
