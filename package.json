@@ -1,10 +1,11 @@
 {
   "name": "note-taker",
   "version": "1.0.0",
-  "description": "",
+  "description": "* [Description](#description)\r * [Installation](#installation)\r * [Usage](#usage)\r * [Testing](#testing)\r * [Contributions](#contributions)\r * [Additional Information](#additional-information)",
   "main": "server.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,5 +16,14 @@
   "devDependencies": {
     "jest": "^28.0.3",
     "nodemon": "^2.0.16"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blindsweatyhansolo/note-taker.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/blindsweatyhansolo/note-taker/issues"
+  },
+  "homepage": "https://github.com/blindsweatyhansolo/note-taker#readme"
 }
